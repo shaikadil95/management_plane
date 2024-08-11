@@ -31,7 +31,7 @@ jobs:
           clientSecret: ${{ secrets.CLIENT_SECRET }}
           baseUrl: https://api.getport.io
           operation: UPSERT
-          identifier: management_plane_service
+          identifier: management_plane_service_${{ env.BUILD_VERSION }}"
           icon: Microservice
           blueprint: management_plane_service
           properties: |-

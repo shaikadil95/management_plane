@@ -28,3 +28,4 @@ jobs:
         run: |
           echo "Short SHA: $SHORT_SHA"
           echo "Build Version: $BUILD_VERSION"
+#           echo "Build Version: ${{ steps.set-build-version.outputs.BUILD_VERSION }}"

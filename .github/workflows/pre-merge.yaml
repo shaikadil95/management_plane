@@ -1,4 +1,4 @@
-name: Premerge Pipeline
+name: Premerge MgmtPlane Pipeline
 
 on:
   pull_request:

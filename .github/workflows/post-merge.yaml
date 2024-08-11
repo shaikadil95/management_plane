@@ -27,8 +27,8 @@ jobs:
       - name: Send release to Getport
         uses: port-labs/port-github-action@v1
         with:
-          clientId: RSo5u6ZFTJl7gOoxJCHNNGlNwmEcDkqE
-          clientSecret: BXYW48Fn5NG0FHe3sQBEJQ7Jv5uYoL7SBedOS8pAGLS3qzvn1lsECyY9qGkMSehy
+          clientId: ${{ secrets.CLIENT_ID }}
+          clientSecret: ${{ secrets.CLIENT_SECRET }}
           baseUrl: https://api.getport.io
           operation: UPSERT
           identifier: management_plane_service

@@ -1,0 +1,45 @@
+name: Postmerge Mgmt Plane Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push events to the main branch
+
+jobs:
+  postmerge:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set the short SHA as an environment variable
+      - name: Set short SHA
+        id: set-short-sha
+        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      # Step 3: Set the build version based on the run number
+      - name: Set build version
+        id: set-build-version
+        run: echo "BUILD_VERSION=v0.0.${{ github.run_number }}" >> $GITHUB_ENV
+
+      # Step 4: Use the Port Labs GitHub Action to send release details to Getport
+      - name: Send release to Getport
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.CLIENT_ID }}
+          clientSecret: ${{ secrets.CLIENT_SECRET }}
+          baseUrl: https://api.getport.io
+          operation: UPSERT
+          identifier: management_plane_service
+          icon: Microservice
+          blueprint: management_plane_service_blueprint
+          team: "['myTeam']"
+          properties: |-
+            {
+              "service_name": "backend api",
+              "status": "Development",
+              "confidence_level": "CL0",
+              "sha": "${{ env.SHORT_SHA }}",
+              "version": "${{ env.BUILD_VERSION }}"
+            }

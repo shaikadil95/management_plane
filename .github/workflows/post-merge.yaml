@@ -33,7 +33,7 @@ jobs:
           operation: UPSERT
           identifier: management_plane_service
           icon: Microservice
-          blueprint: management_plane_service_blueprint
+          blueprint: management_plane_service
           properties: |-
             {
               "service_name": "backend api",

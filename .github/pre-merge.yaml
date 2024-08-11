@@ -1,0 +1,30 @@
+name: Premerge Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main  # Trigger the workflow on pull requests to the main branch
+
+jobs:
+  premerge:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set the short SHA as an environment variable
+      - name: Set short SHA
+        id: set-short-sha
+        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      # Step 3: Set the build version based on the run number
+      - name: Set build version
+        id: set-build-version
+        run: echo "BUILD_VERSION=v0.0.${{ github.run_number }}" >> $GITHUB_ENV
+
+      # Step 4: Echo the variables to verify
+      - name: Verify variables
+        run: |
+          echo "Short SHA: $SHORT_SHA"
+          echo "Build Version: $BUILD_VERSION"

@@ -22,6 +22,12 @@ jobs:
       - name: Set build version
         id: set-build-version
         run: echo "BUILD_VERSION=v0.0.${{ github.run_number }}" >> $GITHUB_ENV
+      # Step 4: Sleep for a few seconds
+      - name: Sleep
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '20s'
+
 
       # Step 4: Use the Port Labs GitHub Action to send release details to Getport
       - name: Send release to Getport
